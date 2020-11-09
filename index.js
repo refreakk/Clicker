@@ -1,5 +1,3 @@
-let clicks = 0;
-
 const TIMEOUT = 5000;
 
 const display = document.querySelector('#display');
@@ -9,6 +7,8 @@ const counter = document.querySelector('#counter');
 button.onclick = start;
 
 function start() {
+	let clicks = 0;
+	button.textContent = 'Clickr';
 	const startTime = Date.now(); // текущее время милисикунд
 
 	display.textContent = formatTime(TIMEOUT);
@@ -21,11 +21,18 @@ function start() {
 
 	const timeout = setTimeout(() => {
 		button.onclick = null; // выключаем обработчик по истечению времени
+		button.textContent = 'Reload';
 		display.textContent = 'Game Over';
-
 		clearInterval(interval);
 		clearTimeout(timeout);
+		setTimeout(() => {
+			return reload();
+		}, 1000);
 	}, TIMEOUT);
+}
+
+function reload() {
+	button.onclick = start;
 }
 
 function formatTime(ms) {
